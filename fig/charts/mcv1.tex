@@ -1,0 +1,87 @@
+% \begin{table}[t]
+% \centering
+% \footnotesize
+% \setlength{\tabcolsep}{3.1pt}
+% \renewcommand{\arraystretch}{1.08}
+% % Keep the model-band background flush with the horizontal rule above it.
+% \setlength{\aboverulesep}{0pt}
+% \setlength{\belowrulesep}{0pt}
+% \resizebox{\columnwidth}{!}{%
+% \begin{tabular}{lrrrr}
+% \toprule[1.2pt]
+% \multicolumn{1}{c}{\multirow{2}{*}{\textbf{Method}}} & \multicolumn{2}{c}{\textbf{GSM8K}} & \multicolumn{2}{c}{\textbf{CRUXEval}} \\
+% \cmidrule(l{0pt}r{1pt}){2-3}\cmidrule(l{1pt}r{0pt}){4-5}
+% & \textbf{Recall} & \textbf{LLM} & \textbf{Recall} & \textbf{LLM} \\
+% \midrule[1.2pt]
+% \multicolumn{5}{c}{\cellcolor{modelshade}\textbf{Qwen3}} \\
+% Base w/ context  & 54.21 & 52.76 & 68.43 & 55.37 \\
+% Base w/o context & 15.21 &  7.82 & 37.75 &  4.62 \\
+% CD (oracle)      & 51.54 & 50.83 & 65.07 & 53.20 \\
+% D2L (oracle)     & 36.23 & 30.24 & 44.09 & 20.50 \\
+% AnyEdit (AlphaEdit) & 16.99 &  1.90 & 44.41 & 10.50 \\
+% CD               & \underline{36.40} & \underline{26.31} & \underline{51.52} & \underline{13.75} \\
+% D2L              & 23.18 & 16.42 & 39.48 & 13.63 \\
+% \midrule[0.5pt]
+% \textbf{PLUME}   & \textbf{45.39} & \textbf{41.47} & \textbf{62.31} & \textbf{50.62} \\
+% \midrule[1.2pt]
+% \multicolumn{5}{c}{\cellcolor{modelshade}\textbf{Gemma2}} \\
+% Base w/ context  & 42.90 & 39.86 & 47.37 & 33.23 \\
+% Base w/o context & 10.12 &  4.41 & 18.07 &  2.96 \\
+% CD (oracle)      & 41.96 & 39.92 & 47.09 & 31.81 \\
+% D2L (oracle)     & 22.23 & 15.29 & 34.36 & 12.83 \\
+% AnyEdit (AlphaEdit) & 10.67 &  1.26 & \underline{34.35} &  6.77 \\
+% CD               & \underline{23.03} & \underline{12.52} & 30.55 & 10.74 \\
+% D2L              & 20.04 & 11.74 & 29.95 & \underline{11.44} \\
+% \midrule[0.5pt]
+% \textbf{PLUME}   & \textbf{33.69} & \textbf{29.65} & \textbf{40.52} & \textbf{26.12} \\
+% \bottomrule[1.2pt]
+% \end{tabular}
+% }
+% \caption{\textbf{Cross-task generalization on GSM8K and CRUXEval.} We reported ROUGE-L Recall and LLM-as-a-Judge scores across Qwen3 and Gemma2.}
+% \label{tab:cross_task_generalization}
+% \end{table}
+
+\begin{table}[t]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{3.1pt}
+\renewcommand{\arraystretch}{1.08}
+% Keep the model-band background flush with the horizontal rule above it.
+\setlength{\aboverulesep}{0pt}
+\setlength{\belowrulesep}{0pt}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lrrrr}
+\toprule[1.2pt]
+\multicolumn{1}{c}{\multirow{2}{*}{\textbf{Method}}} & \multicolumn{2}{c}{\textbf{GSM8K}} & \multicolumn{2}{c}{\textbf{CRUXEval}} \\
+\cmidrule(l{0pt}r{1pt}){2-3}\cmidrule(l{1pt}r{0pt}){4-5}
+& \textbf{Recall} & \textbf{LLM} & \textbf{Recall} & \textbf{LLM} \\
+\midrule[1.2pt]
+\multicolumn{5}{c}{\cellcolor{modelshade}\textbf{Qwen3}} \\
+w/ Context (oracle) & 54.21 & 52.76 & 68.43 & 55.37 \\
+CD (oracle)      & 51.54 & 50.83 & 65.07 & 53.20 \\
+D2L (oracle)     & 36.23 & 30.24 & 44.09 & 20.50 \\
+\midrule
+w/o Context       & 15.21 &  7.82 & 37.75 &  4.62 \\
+AnyEdit           & 16.99 &  1.90 & 44.41 & 10.50 \\
+CD               & \underline{36.40} & \underline{26.31} & \underline{51.52} & \underline{13.75} \\
+D2L              & 23.18 & 16.42 & 39.48 & 13.63 \\
+\midrule[0.5pt]
+\textbf{PLUME}   & \textbf{45.39} & \textbf{41.47} & \textbf{62.31} & \textbf{50.62} \\
+\midrule[1.2pt]
+\multicolumn{5}{c}{\cellcolor{modelshade}\textbf{Gemma2}} \\
+w/ Context (oracle) & 42.90 & 39.86 & 47.37 & 33.23 \\
+CD (oracle)      & 41.96 & 39.92 & 47.09 & 31.81 \\
+D2L (oracle)     & 22.23 & 15.29 & 34.36 & 12.83 \\
+\midrule
+w/o Context       & 10.12 &  4.41 & 18.07 &  2.96 \\
+AnyEdit           & 10.67 &  1.26 & \underline{34.35} &  6.77 \\
+CD               & \underline{23.03} & \underline{12.52} & 30.55 & 10.74 \\
+D2L              & 20.04 & 11.74 & 29.95 & \underline{11.44} \\
+\midrule[0.5pt]
+\textbf{PLUME}   & \textbf{33.69} & \textbf{29.65} & \textbf{40.52} & \textbf{26.12} \\
+\bottomrule[1.2pt]
+\end{tabular}
+}
+\caption{\textbf{Cross-task generalization on GSM8K and CRUXEval.} We reported ROUGE-L Recall and LLM-as-a-Judge scores across Qwen3 and Gemma2.}
+\label{tab:cross_task_generalization}
+\end{table}

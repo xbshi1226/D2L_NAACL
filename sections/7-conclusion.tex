@@ -1,0 +1,41 @@
+% % \section{Conclusion}
+
+% % This paper introduces and formalizes the In-Place Instruction Following task and constructs a benchmark spanning three difficulty levels. Through an attention-bias probe, we find evidence that insufficient prioritization of the constraint span is one source of failure in vanilla dLLMs during parallel denoising. To address this, we propose \method, a post-training framework combining \sft and \vrpo. Additionally, a fine-grained evaluation reveals a persistent trade-off between local and global consistency in style constraint scenarios.
+
+
+% % \section*{Limitations}
+
+% % While \method improves in-place instruction following in dLLMs, this work has several limitations. First, \benchmark{} mainly focuses on text-only in-place instruction following, and its coverage of multilingual, multimodal, and interactive editing scenarios remains limited. Second, although the proposed evaluation protocol combines automatic, reward-model-based, and human judgments, rubric-based evaluation may still be affected by evaluator bias, especially for style and discourse-function constraints. Third, \method is evaluated on four representative dLLMs, but its scalability to larger diffusion models and its robustness under more complex or conflicting anchors require further investigation. Future work may extend IIF to broader domains and develop more interpretable mechanisms for local--global constraint coordination.
+
+
+% \section{Conclusion}
+% \label{sec:conclusion}
+
+% % 本文研究持续更新文档的参数化记忆。现有上下文参数化方法能够将文档编译为可复用参数，但通常假设文档静态且内部一致；当后续修正与原始内容被共同写入时，模型容易混合当前事实与失效事实。因此，可靠的参数化记忆不仅需要高效写入文档，还需要显式建模知识的覆盖关系与查询相关读取。
+
+% % 为此，我们提出 \task{} 任务，并通过 FLUID 在五个问答基准上构建 \benchmark{}，统一评估更新采用、旧知抑制和知识保持。我们进一步提出 \method{}，联合完整文档状态、新旧 LoRA 的更新方向与查询相关记忆证据，并通过自适应解码调用当前有效知识。跨数据集、模型和任务的实验以及消融分析验证了 \method{} 的有效性，为构建可更新、可复用的长期参数记忆提供了新的评测基础与方法路径。
+
+
+% % This paper studies parametric memory updates for continually evolving context. Existing context parameterization methods can compile context into reusable parameters, thereby avoiding repeated encoding of the full context for every query. However, they typically assume that the context is static and internally consistent. When outdated information and subsequent updates are jointly encoded into the same parameter state, models can easily conflate currently valid facts with obsolete ones. Reliable parametric memory therefore requires not only efficient context parameterization, but also an explicit representation of how new knowledge supersedes old knowledge.
+
+% % To this end, we introduce the \task{} task and construct \benchmark{} from five public question-answering datasets, with LLM-as-a-Judge metrics for evaluating adherence to updated knowledge. We further propose \method{}, which preserves the global context state through a full-history LoRA, amplifies the update direction through the difference between the new and old LoRAs, and adaptively integrates query-relevant memory evidence during decoding. Experiments and ablation studies across datasets and model backbones consistently demonstrate the effectiveness of these designs, establishing a benchmark and method for studying reusable and reliably updatable long-term parametric memory.
+
+% This paper studies context parameterization under continual updates, where contextual information is internalized into reusable parameterized states and subsequently revised as new information arrives. 
+% Existing context parameterization methods can efficiently compile context into reusable parameters, avoiding repeated processing of the full context for each query.
+% However, they typically assume that the context is static and internally consistent. 
+% When previously valid information and subsequent updates are jointly parameterized, models may conflate currently valid knowledge with invalidated information.
+% Reliable context parameterization under continual updates therefore requires not only efficient reuse, but also effective incorporation of updates while preserving unaffected knowledge.
+
+% To study this setting, we introduce the \task{} task and construct \benchmark{} from five public question-answering datasets, using LLM-as-a-Judge to evaluate model adherence to currently valid information. 
+% We further propose \method{}, which preserves global contextual information through a full-history LoRA, amplifies the update direction using the parameter difference between pre- and post-update LoRAs, and adaptively integrates query-conditioned memory evidence during decoding. 
+% Experiments and ablation studies across multiple datasets and model backbones consistently demonstrate the effectiveness of these components, establishing \benchmark{} and \method{} as a benchmark and method for studying reusable and reliably updatable parameterized context.
+
+
+
+
+
+
+
+\section{Conclusion}
+\label{sec:conclusion}
+This paper studied context parameterization under continual updates. We introduced \task{} and constructed \benchmark{}, comprising five question-answering datasets, to jointly evaluate the fidelity of update integration and the stability of unaffected information. We further proposed \method{}, integrating global update representation with query-activated memory evidence. Experiments and ablations across datasets and backbones confirmed its effectiveness for reliable context parameterization in this setting, extending this paradigm to the dynamically evolving information environments that prior work has largely overlooked.

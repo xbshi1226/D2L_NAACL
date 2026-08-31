@@ -1,0 +1,36 @@
+\begin{table*}[!t]
+\centering
+\small
+\setlength{\tabcolsep}{5pt}
+\renewcommand{\arraystretch}{1.15}
+\providecommand{\MethodHeaderVShift}{-0.3ex}
+\begin{tabular}{ccccc}
+\toprule
+\multirow{2}{*}{\raisebox{\MethodHeaderVShift}{\textbf{Method}}}
+& \multicolumn{2}{c}{SQuAD}
+& \multicolumn{2}{c}{2Wiki} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}
+& Mem. (GiB) $\downarrow$
+& Lat. (s/document) $\downarrow$
+& Mem. (GiB) $\downarrow$
+& Lat. (s/document) $\downarrow$ \\
+\midrule
+CD (oracle)      & 3.568 & 56.600 & 22.376 & 950.085 \\
+\midrule
+AnyEdit          & \underline{6.332} & 18.754 & 55.028 & 4099.473 \\
+CD               & 48.708 & 451.827 & \underline{51.956} & 489.059 \\
+D2L              & \textbf{0.438} & \underline{0.466} & \textbf{11.536} & \underline{1.841} \\
+\midrule
+\textbf{PLUME}   & \textbf{0.438} & \textbf{0.447} & \textbf{11.536} & \textbf{1.832} \\
+\bottomrule
+\end{tabular}
+\caption{
+Update efficiency on SQuAD and 2Wiki.
+Memory denotes peak update memory, and latency denotes update time per
+document. The two base methods are omitted because they incur no update-stage
+cost. Excluding the oracle method, bold and underlined values denote the best
+and second-best results, respectively. Lower values are better; tied best
+values are both bolded.
+}
+\label{tab:update-efficiency}
+\end{table*}

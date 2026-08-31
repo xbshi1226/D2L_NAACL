@@ -1,0 +1,26 @@
+\section{Related Work}
+\label{sec:related-work}
+
+\paragraph{Context Internalization.}
+
+% RAG~\citep{gao2023retrieval} and long-context models~\citep{ding2023longnet} provide context at inference time, requiring repeated processing. 
+% Context parameterization instead internalizes context for reuse across queries.
+% CD transfers context-induced behavior into model parameters~\citep{snell2022learning}, while D2L compiles context into lightweight parameterized representations~\citep{charakorn2026doc}.
+% However, these methods mainly assume static, internally consistent contexts and do not explicitly handle validity changes under subsequent updates.
+RAG~\citep{gao2023retrieval} and long-context models~\citep{ding2023longnet} supply context at inference time, incurring repeated overhead.
+Context parameterization instead internalizes context into reusable representations.
+CD transfers context-induced behavior into model parameters~\citep{snell2022learning}, while D2L compiles context into lightweight parameterized representations~\citep{charakorn2026doc}.
+Both, however, presuppose static, internally consistent contexts, leaving validity changes under updates unaddressed.
+
+
+\paragraph{Knowledge Editing and Continual Updates.}
+Knowledge editing updates factual knowledge in language models without full retraining~\citep{yao2023editing}, exemplified by ROME, MEMIT, and AlphaEdit~\citep{meng2022locating,meng2023massediting,fang2025alphaedit}.
+Recent work examined sequential editing, interference, and knowledge preservation~\citep{wang2024knowledge,chen2024lifelong,jiang2024learning,li2025reinforced}.
+Our setting instead considers continual updates to parameterized contexts with factual dependencies and unaffected information.
+
+
+\paragraph{Knowledge Conflicts.}
+Prior work mainly studied conflicts between parametric knowledge and external context~\citep{xie2024adaptive,shi2024ircan}, or among retrieved contexts~\citep{cattan2025dragged,xu2024knowledge}.
+These settings retained conflicting evidence at inference time.
+In contrast, our setting considers currently valid and invalidated information already internalized into parameters, without direct access to the original context.
+\benchmark{} and \method{} are designed for this setting.

@@ -1,0 +1,71 @@
+{
+  "format_note": "Each example contains exactly one question-answer pair and one context field. [...] marks omitted content, while the original correction notice is preserved between the old and updated excerpts. For CRUXEval, complete code lines are used instead of sentences.",
+  "examples": [
+    {
+      "dataset": "SQuAD",
+      "source_file": "/9950backfile/guoyf/lzr/sxb/Memory/experiments/data/squad/squad1-2067v4.jsonl",
+      "source_line": 4,
+      "question": "Which group headlined the Super Bowl 50 halftime show?",
+      "old_answer": "Coldplay",
+      "updated_answer": "Imagine Dragons",
+      "context": "CBS broadcast Super Bowl 50 in the U.S., and charged an average of $5 million for a 30-second commercial during the game. [...] The Super Bowl 50 halftime show was headlined by the British rock group Coldplay with special guest performers Beyoncé and Bruno Mars, who headlined the Super Bowl XLVII and Super Bowl XLVIII halftime shows, respectively. [...] It was the third-most watched U.S. broadcast ever.\n[Correction & Update Notice]: The following account supersedes the corresponding details above.\n[...] The Super Bowl 50 halftime show was headlined by the American pop rock band Imagine Dragons with special guest performers Rihanna and The Weeknd, who headlined the Super Bowl XLVII and Super Bowl XLVIII halftime shows, respectively. [...]"
+    },
+    {
+      "dataset": "ROPES",
+      "source_file": "/9950backfile/guoyf/lzr/sxb/Memory/experiments/data/ropes/ropes1-203v2.jsonl",
+      "source_line": 4,
+      "question": "Which city should Bill avoid to satisfy his goals?",
+      "old_answer": "St. Louis",
+      "updated_answer": "Seattle",
+      "context": "One result of air pollution is acid rain. [...] Sulfur oxides are chemicals that are released from coal-fired power plants. [...] Bill wants to move to a city that has fresher air and more wildlife to see. [...] Recently, Seattle has installed a new wind farm, and zero emission solar farm to generate power, while St. Louis recently installed a coal fired power plant. [...] Both cities have similar commercial and industrial sectors, and only differ in how they generate power.\n[Correction & Update Notice]: The following account supersedes the corresponding details above.\n[...] Sulfur oxides are chemicals that are released from coal-fired power plants. [...] Bill wants to move to a city that has fresher air and more wildlife to see. [...] Recently, St. Louis has installed a new wind farm and a zero emission solar farm to generate power, while Seattle recently installed a coal fired power plant. [...]"
+    },
+    {
+      "dataset": "2WikiMultihopQA",
+      "source_file": "/9950backfile/guoyf/lzr/sxb/Memory/experiments/data/longbench/2wikimqa/wiki1-300v3.jsonl",
+      "source_line": 2,
+      "source_id": "52150ca076ef6a156239c8fd2cb45983ba9b8cd446312f22",
+      "question": "Where was the director of film Requiem for Dominic born?",
+      "old_answer": "Temesvár, Romania",
+      "updated_answer": "Graz, Austria",
+      "context": "Brian Patrick Kennedy (born 5 November 1961) is an Irish-born art museum director who has worked in Ireland and Australia, and now lives and works in the United States. [...] Requiem for Dominic (German: Requiem für Dominik) is a 1991 Austrian drama film directed by Robert Dornhelm. [...] Robert Dornhelm (born 17 December 1947 in Temesvár, Romania) is an Austrian film and television director. [...] Ian Barry is an Australian director of film and TV.\n[Correction & Update Notice]: The following account supersedes the corresponding details above.\n[...] Requiem for Dominic (German: Requiem für Dominik) is a 1991 Austrian drama film directed by Robert Dornhelm. [...] Robert Dornhelm (born 17 December 1947 in Graz, Austria) is an Austrian film and television director. [...]"
+    },
+    {
+      "dataset": "MultiFieldQA-en",
+      "source_file": "/9950backfile/guoyf/lzr/sxb/Memory/experiments/data/longbench/mfqa/mfqa.jsonl",
+      "source_line": 12,
+      "source_id": "94ccf4d54b36e7e9d4aa594a7bc426528630a5b8aff296a4",
+      "question": "When was the 2017 general election held?",
+      "old_answer": "23 September",
+      "updated_answer": "30 September",
+      "context": "Sir Simon William English (born 30 December 1961) is a New Zealand former National Party politician who served as the 39th prime minister of New Zealand from 2016 to 2017. [...] At a press conference at the Beehive on 1 February 2017, English announced that the 2017 general election would be held on 23 September. [...] In the 2018 Queen's Birthday Honours, English was appointed a Knight Companion of the New Zealand Order of Merit, for services of over 27 years to the State.\n[Correction & Update Notice]: The following account supersedes the corresponding details above.\n[...] At a press conference at the Beehive on 1 February 2017, English announced that the 2017 general election would be held on 30 September. [...]"
+    },
+    {
+      "dataset": "QASPER",
+      "source_file": "/9950backfile/guoyf/lzr/sxb/Memory/experiments/data/longbench/qasper/qasper1-224v2.jsonl",
+      "source_line": 2,
+      "source_id": "8e5e6c35689e17e9f50df76ada506a4c05be9ed081c883d4",
+      "question": "What type of latent context is used to predict instructor intervention?",
+      "old_answer": "The series of posts that trigger an intervention",
+      "updated_answer": "A single semantically relevant prior student post",
+      "context": "Massive Open Online Courses (MOOCs) have strived to bridge the social gap in higher education by bringing quality education from reputed universities to students at large. [...] We therefore propose attention models to infer the latent context, i.e., the series of posts that trigger an intervention. [...] An ensemble model or a multi-objective loss function is thus planned in our future work to better prediction on such longer threads.\n[Correction & Update Notice]: The following account supersedes the corresponding details above.\n[...] We therefore propose attention models to infer the latent context, i.e., a single semantically relevant prior student post used as evidence for intervention. [...]"
+    },
+    {
+      "dataset": "GSM8K",
+      "source_file": "/9950backfile/guoyf/lzr/sxb/Memory/experiments/data/gsm8k/gsm8k1-1319v5.jsonl",
+      "source_line": 77,
+      "question": "If one bag of dog food contains 100 cups, how many bags of dog food will Cecilia use in the first year?",
+      "old_answer": "6",
+      "updated_answer": "7",
+      "context": "Cecilia just bought a new puppy. [...] According to her veterinarian, she has to feed the puppy 1 cup of dog food every day for the first 180 days. [...] Then she has to feed the puppy 2 cups of dog food every day for the rest of its life.\n[Correction & Update Notice]: The following revised problem statement supersedes any overlapping details above.\n[...] According to her veterinarian, she has to feed the puppy 1 cup of dog food every day for the first 120 days. [...]"
+    },
+    {
+      "dataset": "CRUXEval",
+      "source_file": "/9950backfile/guoyf/lzr/sxb/Memory/experiments/data/cruxeval/crux1-800v4.jsonl",
+      "source_line": 2,
+      "question": "If the input is (1, ), (1, ), (1, 2), what is the output of the function? Output only the result.",
+      "old_answer": "{1: None, 2: None}",
+      "updated_answer": "{1: 3, 2: 1}",
+      "context": "def f(a, b, c):\n    [...]\n    result = {}\n    for d in a, b, c:\n        result.update(dict.fromkeys(d))\n    [...]\n    return result\n[Correction & Update Notice]: The following revised code supersedes any overlapping details above.\n[...]\n    result = {}\n    for d in a, b, c:\n        for item in d:\n            result[item] = result.get(item, 0) + 1\n[...]"
+    }
+  ]
+}

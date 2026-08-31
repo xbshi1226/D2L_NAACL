@@ -1,0 +1,14 @@
+\begin{abstract}
+
+Context parameterization enables large language models (LLMs) to internalize contexts into reusable model parameters, avoiding repeated context processing.
+However, existing methods typically assume static contexts and lack explicit mechanisms for distinguishing validity states under continual updates.
+To study this real-world scenario, we formalized the \underline{M}emory \underline{U}pdating with \underline{S}equential \underline{E}volution \textbf{(\task{})} task and constructed \textbf{\benchmark{}} to evaluate update incorporation and unaffected-information preservation.
+The resulting challenge requires preserving the global state while dynamically adjusting the contribution of memory evidence.
+Motivated by this, we proposed 
+% \textbf{Parametric LoRA Updates with Memory Evidence (\method{})}
+\textbf{\method{}}, a training-free method that constructs a global update representation, activates memory evidence to form a local parameter view, and adaptively integrates their predictions during decoding.
+Comprehensive experiments across five datasets demonstrated PLUME's exceptional effectiveness, yielding relative improvements of \textbf{29.9\%} in average ROUGE-L Recall and \textbf{54.9\%} in LLM-as-a-Judge.
+Our code is available at: \url{https://anonymous.4open.science/r/plume}.
+
+\end{abstract}
+

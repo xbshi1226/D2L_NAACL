@@ -1,0 +1,65 @@
+\section{\benchmark{}}
+\label{sec:benchmark}
+
+To systematically evaluate context parameterization under continual updates, we defined the \textbf{\task{} (Memory Updating with Sequential Evolution)} task and constructed \textbf{\benchmark{}}, focusing on incorporating currently valid information while preserving unaffected information.
+
+
+\subsection{Motivation and Task Formulation}
+
+\paragraph{Motivation.}
+Existing context parameterization methods primarily consider contexts to be static and internally consistent, without explicitly considering conflicts introduced by continual updates~\citep{charakorn2026doc,liu2026shine}. 
+Prior evaluations primarily assessed either static context internalization~\citep{snell2022learning,charakorn2026doc,liu2026shine} or targeted factual modifications~\citep{meng2022locating,meng2023massediting}, leaving the incorporation of continual updates and the preservation of unaffected information in parameterized representations insufficiently evaluated.
+\benchmark{} is designed to address this gap in a unified setting.
+
+\paragraph{Task Formulation.}
+Given an original context $C_o$ and a subsequent update context $C_u$, we concatenate them chronologically to form the full context history used for subsequent parameterization
+\begin{equation}C_f = C_o \Vert C_u,\end{equation}
+where later information in $C_u$ determines the currently valid state of updated facts, while unaffected information remains unchanged. 
+Let $\mathcal{A}$ denote a context parameterization method that transforms $C_f$ into a context-specific parameter state:
+\begin{equation}
+\theta_f = \mathcal{A}(\theta, C_f),
+\label{eq:context-parameterization}
+\end{equation}
+where $\theta$ denotes the base model parameters. After parameterization, the model receives only the query $q$ and generates
+\begin{equation}
+\hat{y}(q) = \operatorname*{arg\,max}_{y} p_{\theta_f}(y\mid q).
+\label{eq:muse-inference}
+\end{equation}
+Let $y^\star(q)$ denote the reference answer determined by the currently valid information in $C_f$. 
+We divide queries into two categories: $\mathcal{Q}_{\mathrm{upd}}$, whose answers are affected by the update, and $\mathcal{Q}_{\mathrm{keep}}$, whose answers remain unchanged. 
+Both categories are evaluated under the parameterized full context history, although $\mathcal{Q}_{\mathrm{keep}}$ remains answerable from unaffected information in $C_o$. \task{} evaluates whether the parameterized state incorporates updated information while preserving unaffected answers.
+
+
+\subsection{Benchmark Construction}
+\label{sec:benchmark-dataset}
+
+\benchmark{} comprises five datasets: SQuAD, ROPES, 2WikiMultihopQA, MultiFieldQA-en, and QASPER~\citep{rajpurkar2016squad,lin2019reasoning,ho2020constructing,bai2024longbench,dasigi2021dataset}, with approximately \textbf{3,000 contexts} and \textbf{13,000 question-answer pairs} in total.
+Given an original context $C_o=\{c_1,c_2,\ldots,c_n\}$, we randomly sampled evidence units supporting a target answer and carefully updated the corresponding facts while preserving the original question and context structures. When other facts had semantic or reasoning dependencies on the target facts, we updated them consistently to construct an internally coherent update context $C_u$, which was then appended to $C_o$ to form the full context history $C_f$. The resulting context history supports the currently valid answers for update-affected queries while preserving the corresponding original answers for unaffected queries.
+
+
+Candidate samples were generated with GPT-series models for fact modification, dependency identification, and question-answer annotation, primarily using GPT-5.5~\citep{openai2026gpt55} and GPT-5.6-Sol~\citep{openai2026gpt56} throughout the benchmark construction process.
+We further used GPT-5.6-Sol to conduct 26 rounds of quality verification, checking:
+(1) whether $C_f$ supports the current correct answers;
+(2) whether coupled information are consistently updated; and
+(3) whether unaffected answers remain supported by $C_f$.
+Detailed construction procedures, annotation prompts, and quality control protocols are provided in Appendix~\ref{app:annotation-guidelines}.
+
+
+
+\subsection{Evaluation Protocol}
+\label{sec:benchmark-evaluation}
+
+\benchmark{} evaluates model outputs from four complementary perspectives of answer quality and update robustness.
+\textbf{\rule[0.1em]{0.45em}{0.45em}\hspace{0.3em}D1 Answer Coverage}
+uses token-level ROUGE-L Recall~\citep{lin2004rouge} to measure reference-answer coverage.
+\textbf{\rule[0.1em]{0.45em}{0.45em}\hspace{0.3em}D2 Semantic Equivalence}
+evaluates whether the generated answer is semantically equivalent to the current reference answer.
+\textbf{\rule[0.1em]{0.45em}{0.45em}\hspace{0.3em}D3 Final-Answer Agreement}
+measures whether the model's final answer agrees with the reference answer.
+\textbf{\rule[0.1em]{0.45em}{0.45em}\hspace{0.3em}D4 Locality}
+measures whether the model preserves correct answers for queries unaffected by the update.
+Together, these metrics evaluate both effective incorporation of currently valid information and reliable preservation of unaffected information.
+
+All metrics are computed at the query level and then aggregated within each dataset for overall performance comparison.
+For D2 and D3, we used \textbf{GPT-5.6-Sol} as the LLM Judge with unified evaluation prompts and consistent evaluation criteria.
+Detailed evaluation settings and complete evaluation rubrics are provided in Appendix~\ref{app:evaluation-setup}.

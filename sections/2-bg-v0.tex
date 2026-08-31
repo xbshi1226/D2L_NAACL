@@ -1,0 +1,29 @@
+\section{Background}
+\label{sec:background}
+
+This paper studies context parameterization under continual updates, where contextual information is internalized into a parameterized state for reuse across queries. Let $C$, $q$, and $y$ denote the context, query, and answer sequences, respectively, and let $p_\theta$ denote the conditional generation distribution of a language model with parameters $\theta$.
+Conventional long-context and RAG methods instead supply context explicitly at inference time, generating answers via $p_\theta(y\mid C,q)$~\citep{lewis2020retrieval,guu2020retrieval,ding2023longnet}.
+This incurs repeated reprocessing overhead per query, and long-context models may further suffer degraded information access depending on context position~\citep{liu2024lost,hsieh2024found}.
+
+Context Distillation (CD) instead transfers contextual information from explicit input into model parameters.
+Given a context $C$ and an associated query distribution $\mathcal{Q}_C$, CD uses a context-conditioned teacher to optimize a context-specific parameter state $\theta_C$:
+\begin{equation}
+\min_{\theta_C}\mathbb{E}_{q\sim\mathcal{Q}_C}\left[
+D_{\mathrm{KL}}\left(p_\theta(\cdot\mid C,q)\parallel
+p_{\theta_C}(\cdot\mid q)\right)\right].
+\end{equation}
+The teacher has direct access to $C$, whereas the student is optimized to reproduce the teacher distribution using only the query.
+In this way, information originally supplied through the input context is encoded into the resulting parameter state.
+After distillation, the model can answer queries without explicitly receiving $C$ during inference, allowing the same parameterized context to be reused across multiple queries~\citep{askell2021general,snell2022learning}.
+However, CD requires context-specific distillation data and iterative optimization for each new context, making repeated updates costly.
+
+Doc-to-LoRA (D2L) amortizes this per-context optimization using a hypernetwork $H_\phi$ that maps a context directly to a LoRA weight delta~\citep{hu2022lora,charakorn2026doc}:
+\begin{equation}
+\Delta W_C=H_\phi(C),\qquad
+\theta_C=\theta\oplus\Delta W_C .
+\end{equation}
+Here, $\Delta W_C$ denotes the generated LoRA adapter and $\oplus$ denotes applying it to the frozen base model.
+Instead of optimizing a separate parameter state for each context, D2L learns the mapping from contextual information to parameter updates across a collection of training contexts.
+Once trained, $H_\phi$ generates a reusable context-specific adapter in a single forward pass, substantially reducing the parameterization cost for previously unseen contexts.
+The generated adapter can be independently applied to or removed from the frozen base model, providing a lightweight parameter representation of the corresponding context.
+However, D2L parameterizes contexts without explicitly modeling continual updates to existing parameterized states.

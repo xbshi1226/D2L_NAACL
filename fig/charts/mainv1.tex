@@ -1,0 +1,706 @@
+% \begingroup
+
+% \definecolor{headerbg}{HTML}{FAF7FF}
+
+% \definecolor{recallarrow}{HTML}{F05A3C}
+
+% \definecolor{llmarrow}{HTML}{3182CE}
+
+% \newcommand{\RecallMetric}{Recall\,\textcolor{recallarrow}{$\uparrow$}}
+
+% \newcommand{\LLMMetric}{LLM\,\textcolor{llmarrow}{$\uparrow$}}
+
+% \newcommand{\PLUMENumber}[1]{{\color{black}\bfseries #1}}
+
+% \newcommand{\SecondNumber}[1]{\uline{#1}}
+
+% \newcommand{\MethodFont}{\fontsize{12pt}{34pt}\selectfont\bfseries}
+
+% \newlength{\ModelHeadingOffset}
+
+% \newlength{\ModelHeadingHeight}
+
+% \newlength{\ModelHeadingAboveSep}
+
+% \newlength{\ModelHeadingBelowSep}
+
+% \setlength{\ModelHeadingOffset}{10.1cm}
+
+% \setlength{\ModelHeadingHeight}{8pt}
+
+% \setlength{\ModelHeadingAboveSep}{0pt}
+
+% \setlength{\ModelHeadingBelowSep}{0pt}
+
+% \newcommand{\ModelHeadingText}[1]{%
+%   \makebox[0pt][l]{\hspace*{\ModelHeadingOffset}%
+%     {\color{gray}\itshape #1}}%
+% }
+
+% \newcommand{\DatasetHeader}[1]{%
+%   \begin{tblr}{
+%       colspec={Q[c,wd=1.35cm]Q[c,wd=1.05cm]},
+%       colsep=3.1pt,
+%       rowsep=2pt,
+%       rows={font=\bfseries,halign=c,valign=m},
+%       hline{2}={wd=0.5pt,solid,leftpos=-0.5,rightpos=-0.5},
+%     }
+%     \SetCell[c=2]{halign=c,valign=m}#1 & {} \\
+%     \RecallMetric & \LLMMetric
+%   \end{tblr}%
+% }
+
+% \begin{table*}[t]
+
+% \centering
+
+% \small
+
+% \caption{\textbf{Performance comparison of different methods} on five MUSE-Bench datasets across Qwen3 and Gemma-2, evaluated by ROUGE-L Recall and LLM-as-a-Judge.}
+
+% \label{tab:main_results}
+
+% \resizebox{\textwidth}{!}{%
+
+% \begin{tblr}{
+%     colspec = {
+%         Q[l,wd=4.6cm,valign=m]
+%         *{5}{
+%             Q[c,wd=1.35cm,valign=m]
+%             Q[c,wd=1.05cm,valign=m]
+%         }
+%     },
+%     rowsep = 1pt,
+%     % Keep the two rules above each PLUME row distinct after resizing.
+%     rulesep = 2pt,
+%     colsep = 4pt,
+%     row{1} = {bg=headerbg, halign=c, valign=m, font=\bfseries,
+%               abovesep=2pt, belowsep=2pt},
+%     hline{1} = {wd=2pt, solid},
+%     hline{2,11} = {wd=2pt, solid},
+%     % The PLUME rows are rows 10 and 19.  Number the two rules explicitly
+%     % on those boundaries so they cannot attach to the preceding data row.
+%     hline{10,19} = {1}{-}{wd=0.5pt, solid},
+%     hline{10,19} = {2}{-}{wd=0.5pt, solid},
+%     column{1} = {font=\bfseries},
+% }
+
+% \SetCell{halign=c,valign=m}{{\MethodFont Method}}
+
+% & \SetCell[c=2]{halign=c,valign=m}{\DatasetHeader{SQuAD}} & {}
+
+% & \SetCell[c=2]{halign=c,valign=m}{\DatasetHeader{ROPES}} & {}
+
+% & \SetCell[c=2]{halign=c,valign=m}{\DatasetHeader{2Wiki}} & {}
+
+% & \SetCell[c=2]{halign=c,valign=m}{\DatasetHeader{MFQA}} & {}
+
+% & \SetCell[c=2]{halign=c,valign=m}{\DatasetHeader{QASPER}} & {} \\
+
+% \SetRow{ht=\ModelHeadingHeight,
+%         abovesep=\ModelHeadingAboveSep,
+%         belowsep=\ModelHeadingBelowSep}
+% \SetCell[c=11]{halign=l,valign=m}{\ModelHeadingText{Qwen-3}} \\
+
+% \SetHline{1-11}{0.5pt,solid}
+
+% Base Model w/ Context
+
+% & 95.86 & 91.69
+
+% & 97.82 & 95.91
+
+% & 60.11 & 52.35
+
+% & 64.50 & 60.08
+
+% & 61.75 & 53.95
+
+% \\
+
+% Base Model w/o Context
+
+% & 24.61 & 15.19
+
+% & 82.88 & 64.99
+
+% & 31.75 & 24.67
+
+% & 22.48 & 11.33
+
+% & 1.28 & 1.89
+
+% \\
+
+% CD (oracle)
+
+% & 94.93 & 91.75
+
+% & 98.31 & 97.52
+
+% & 68.51 & 65.44
+
+% & 66.24 & 61.17
+
+% & 62.46 & 55.81
+
+% \\
+
+% D2L (oracle)
+
+% & 76.77 & 64.92
+
+% & 85.57 & 80.39
+
+% & 43.13 & 38.33
+
+% & 28.80 & 20.34
+
+% & 22.98 & 15.80
+
+% \\
+
+% CD
+
+% & 40.57 & 27.85
+
+% & 74.69 & 67.00
+
+% & 36.15 & 30.67
+
+% & \SecondNumber{30.78} & \SecondNumber{23.33}
+
+% & 16.78 & 9.57
+
+% \\
+
+% D2L
+
+% & \SecondNumber{54.96} & \SecondNumber{37.27}
+
+% & \SecondNumber{86.99} & \SecondNumber{81.33}
+
+% & \SecondNumber{36.30} & \SecondNumber{30.84}
+
+% & 27.15 & 12.00
+
+% & \SecondNumber{16.88} & \SecondNumber{11.02}
+
+% \\
+
+% AnyEdit (AlphaEdit)
+
+% & 15.77 & 12.44
+
+% & 76.43 & 67.48
+
+% & 16.25 & 15.00
+
+% & 13.23 & 9.25
+
+% & 7.40 & 4.02
+
+% \\
+
+% \SetRow{font=\bfseries\color{black}}
+
+% PLUME
+
+% & \PLUMENumber{80.65} & \PLUMENumber{76.81}
+
+% & \PLUMENumber{94.61} & \PLUMENumber{90.26}
+
+% & \PLUMENumber{47.24} & \PLUMENumber{41.48}
+
+% & \PLUMENumber{37.76} & \PLUMENumber{34.01}
+
+% & \PLUMENumber{28.53} & \PLUMENumber{24.48}
+
+% \\
+
+% \SetRow{ht=\ModelHeadingHeight,
+%         abovesep=\ModelHeadingAboveSep,
+%         belowsep=\ModelHeadingBelowSep}
+% \SetCell[c=11]{halign=l,valign=m}{\ModelHeadingText{Gemma-2}} \\
+
+% \SetHline{1-11}{0.5pt,solid}
+
+% Base Model w/ Context
+
+% & 90.73 & 84.65
+
+% & 84.73 & 80.17
+
+% & 36.39 & 28.21
+
+% & 31.81 & 27.49
+
+% & 52.48 & 44.72
+
+% \\
+
+% Base Model w/o Context
+
+% & 22.07 & 12.54
+
+% & 44.44 & 25.95
+
+% & 14.76 & 6.49
+
+% & 5.02 & 3.36
+
+% & 0.95 & 1.17
+
+% \\
+
+% CD (oracle)
+
+% & 89.92 & 84.77
+
+% & 85.81 & 79.38
+
+% & 42.23 & 34.39
+
+% & 35.11 & 30.84
+
+% & 52.46 & 45.40
+
+% \\
+
+% D2L (oracle)
+
+% & 70.81 & 57.46
+
+% & 58.84 & 50.43
+
+% & 22.11 & 16.15
+
+% & 14.75 & 7.72
+
+% & 19.10 & 12.58
+
+% \\
+
+% CD
+
+% & 32.30 & 20.19
+
+% & 54.63 & 45.21
+
+% & 20.82 & 14.48
+
+% & 9.72 & \SecondNumber{6.76}
+
+% & 12.94 & 5.23
+
+% \\
+
+% D2L
+
+% & \SecondNumber{49.17} & \SecondNumber{31.36}
+
+% & \SecondNumber{57.53} & \SecondNumber{48.69}
+
+% & \SecondNumber{21.09} & \SecondNumber{15.96}
+
+% & \SecondNumber{11.44} & 6.55
+
+% & \SecondNumber{14.22} & \SecondNumber{7.96}
+
+% \\
+
+% AnyEdit (AlphaEdit)
+
+% & 16.24 & 8.93
+
+% & 51.81 & 41.72
+
+% & 10.37 & 8.64
+
+% & 5.23 & 4.06
+
+% & 0.54 & 0.46
+
+% \\
+
+% \SetRow{font=\bfseries\color{black}}
+
+% PLUME
+
+% & \PLUMENumber{74.80} & \PLUMENumber{68.60}
+
+% & \PLUMENumber{62.70} & \PLUMENumber{55.78}
+
+% & \PLUMENumber{29.85} & \PLUMENumber{24.82}
+
+% & \PLUMENumber{23.29} & \PLUMENumber{19.42}
+
+% & \PLUMENumber{24.51} & \PLUMENumber{20.35}
+
+% \\
+
+% \SetHline{1-11}{2pt,solid}
+
+% \end{tblr}%
+
+% }
+
+% \end{table*}
+
+% \endgroup
+
+
+\begingroup
+
+\definecolor{headerbg}{HTML}{FAF7FF}
+
+\definecolor{recallarrow}{HTML}{F05A3C}
+
+\definecolor{llmarrow}{HTML}{3182CE}
+
+\newcommand{\RecallMetric}{Recall\,\textcolor{recallarrow}{$\uparrow$}}
+
+\newcommand{\LLMMetric}{LLM\,\textcolor{llmarrow}{$\uparrow$}}
+
+\newcommand{\PLUMENumber}[1]{{\color{black}\bfseries #1}}
+
+\newcommand{\SecondNumber}[1]{\uline{#1}}
+
+\newcommand{\MethodFont}{\fontsize{12pt}{34pt}\selectfont\bfseries}
+
+\newlength{\ModelHeadingOffset}
+
+\newlength{\ModelHeadingHeight}
+
+\newlength{\ModelHeadingAboveSep}
+
+\newlength{\ModelHeadingBelowSep}
+
+\setlength{\ModelHeadingOffset}{10.1cm}
+
+\setlength{\ModelHeadingHeight}{8pt}
+
+\setlength{\ModelHeadingAboveSep}{0pt}
+
+\setlength{\ModelHeadingBelowSep}{0pt}
+
+\newcommand{\ModelHeadingText}[1]{%
+  \makebox[0pt][l]{\hspace*{\ModelHeadingOffset}%
+    {\color{gray}\itshape #1}}%
+}
+
+\newcommand{\DatasetHeader}[1]{%
+  \begin{tblr}{
+      colspec={Q[c,wd=1.35cm]Q[c,wd=1.05cm]},
+      colsep=3.1pt,
+      rowsep=2pt,
+      rows={font=\bfseries,halign=c,valign=m},
+      hline{2}={wd=0.5pt,solid,leftpos=-0.5,rightpos=-0.5},
+    }
+    \SetCell[c=2]{halign=c,valign=m}#1 & {} \\
+    \RecallMetric & \LLMMetric
+  \end{tblr}%
+}
+
+\begin{table*}[t]
+
+\centering
+
+\small
+
+\caption{\textbf{Performance comparison of different methods} on five MUSE-Bench datasets across Qwen3 and Gemma-2, evaluated by ROUGE-L Recall and LLM-as-a-Judge. Oracle methods are excluded when identifying the best and second-best methods.}
+
+\label{tab:main_results}
+
+\resizebox{\textwidth}{!}{%
+
+\begin{tblr}{
+    colspec = {
+        Q[l,wd=4.6cm,valign=m]
+        *{5}{
+            Q[c,wd=1.35cm,valign=m]
+            Q[c,wd=1.05cm,valign=m]
+        }
+    },
+    rowsep = 1pt,
+    % Keep the two rules above each PLUME row distinct after resizing.
+    rulesep = 2pt,
+    colsep = 4pt,
+    row{1} = {bg=headerbg, halign=c, valign=m, font=\bfseries,
+              abovesep=2pt, belowsep=2pt},
+    hline{1} = {wd=2pt, solid},
+    hline{2,11} = {wd=2pt, solid},
+    % The PLUME rows are rows 10 and 19.  Number the two rules explicitly
+    % on those boundaries so they cannot attach to the preceding data row.
+    hline{10,19} = {1}{-}{wd=0.5pt, solid},
+    hline{10,19} = {2}{-}{wd=0.5pt, solid},
+    column{1} = {font=\bfseries},
+}
+
+\SetCell{halign=c,valign=m}{{\MethodFont Method}}
+
+& \SetCell[c=2]{halign=c,valign=m}{\DatasetHeader{SQuAD}} & {}
+
+& \SetCell[c=2]{halign=c,valign=m}{\DatasetHeader{ROPES}} & {}
+
+& \SetCell[c=2]{halign=c,valign=m}{\DatasetHeader{2Wiki}} & {}
+
+& \SetCell[c=2]{halign=c,valign=m}{\DatasetHeader{MFQA}} & {}
+
+& \SetCell[c=2]{halign=c,valign=m}{\DatasetHeader{QASPER}} & {} \\
+
+\SetRow{ht=\ModelHeadingHeight,
+        abovesep=\ModelHeadingAboveSep,
+        belowsep=\ModelHeadingBelowSep}
+\SetCell[c=11]{halign=l,valign=m}{\ModelHeadingText{Qwen-3}} \\
+
+\SetHline{1-11}{0.5pt,solid}
+
+Base w/ Context (oracle)
+
+& 95.86 & 91.69
+
+& 97.82 & 95.91
+
+& 60.11 & 52.35
+
+& 64.50 & 60.08
+
+& 61.75 & 53.95
+
+\\
+
+CD (oracle)
+
+& 94.93 & 91.75
+
+& 98.31 & 97.52
+
+& 68.51 & 65.44
+
+& 66.24 & 61.17
+
+& 62.46 & 55.81
+
+\\
+
+D2L (oracle)
+
+& 76.77 & 64.92
+
+& 85.57 & 80.39
+
+& 43.13 & 38.33
+
+& 28.80 & 20.34
+
+& 22.98 & 15.80
+
+\\
+
+\SetHline{1-11}{0.5pt,solid}
+
+Base w/o Context
+
+& 24.61 & 15.19
+
+& 82.88 & 64.99
+
+& 31.75 & 24.67
+
+& 22.48 & 11.33
+
+& 1.28 & 1.89
+
+\\
+
+AnyEdit
+
+& 15.77 & 12.44
+
+& 76.43 & 67.48
+
+& 16.25 & 15.00
+
+& 13.23 & 9.25
+
+& 7.40 & 4.02
+
+\\
+
+CD
+
+& 40.57 & 27.85
+
+& 74.69 & 67.00
+
+& 36.15 & 30.67
+
+& \SecondNumber{30.78} & \SecondNumber{23.33}
+
+& 16.78 & 9.57
+
+\\
+
+D2L
+
+& \SecondNumber{54.96} & \SecondNumber{37.27}
+
+& \SecondNumber{86.99} & \SecondNumber{81.33}
+
+& \SecondNumber{36.30} & \SecondNumber{30.84}
+
+& 27.15 & 12.00
+
+& \SecondNumber{16.88} & \SecondNumber{11.02}
+
+\\
+
+\SetRow{font=\bfseries\color{black}}
+
+PLUME
+
+& \PLUMENumber{80.65} & \PLUMENumber{76.81}
+
+& \PLUMENumber{94.61} & \PLUMENumber{90.26}
+
+& \PLUMENumber{47.24} & \PLUMENumber{41.48}
+
+& \PLUMENumber{37.76} & \PLUMENumber{34.01}
+
+& \PLUMENumber{28.53} & \PLUMENumber{24.48}
+
+\\
+
+\SetRow{ht=\ModelHeadingHeight,
+        abovesep=\ModelHeadingAboveSep,
+        belowsep=\ModelHeadingBelowSep}
+\SetCell[c=11]{halign=l,valign=m}{\ModelHeadingText{Gemma-2}} \\
+
+\SetHline{1-11}{0.5pt,solid}
+
+Base w/ Context (oracle)
+
+& 90.73 & 84.65
+
+& 84.73 & 80.17
+
+& 36.39 & 28.21
+
+& 31.81 & 27.49
+
+& 52.48 & 44.72
+
+\\
+
+CD (oracle)
+
+& 89.92 & 84.77
+
+& 85.81 & 79.38
+
+& 42.23 & 34.39
+
+& 35.11 & 30.84
+
+& 52.46 & 45.40
+
+\\
+
+D2L (oracle)
+
+& 70.81 & 57.46
+
+& 58.84 & 50.43
+
+& 22.11 & 16.15
+
+& 14.75 & 7.72
+
+& 19.10 & 12.58
+
+\\
+
+\SetHline{1-11}{0.5pt,solid}
+
+Base w/o Context
+
+& 22.07 & 12.54
+
+& 44.44 & 25.95
+
+& 14.76 & 6.49
+
+& 5.02 & 3.36
+
+& 0.95 & 1.17
+
+\\
+
+AnyEdit
+
+& 16.24 & 8.93
+
+& 51.81 & 41.72
+
+& 10.37 & 8.64
+
+& 5.23 & 4.06
+
+& 0.54 & 0.46
+
+\\
+
+CD
+
+& 32.30 & 20.19
+
+& 54.63 & 45.21
+
+& 20.82 & 14.48
+
+& 9.72 & \SecondNumber{6.76}
+
+& 12.94 & 5.23
+
+\\
+
+D2L
+
+& \SecondNumber{49.17} & \SecondNumber{31.36}
+
+& \SecondNumber{57.53} & \SecondNumber{48.69}
+
+& \SecondNumber{21.09} & \SecondNumber{15.96}
+
+& \SecondNumber{11.44} & 6.55
+
+& \SecondNumber{14.22} & \SecondNumber{7.96}
+
+\\
+
+\SetRow{font=\bfseries\color{black}}
+
+PLUME
+
+& \PLUMENumber{74.80} & \PLUMENumber{68.60}
+
+& \PLUMENumber{62.70} & \PLUMENumber{55.78}
+
+& \PLUMENumber{29.85} & \PLUMENumber{24.82}
+
+& \PLUMENumber{23.29} & \PLUMENumber{19.42}
+
+& \PLUMENumber{24.51} & \PLUMENumber{20.35}
+
+\\
+
+\SetHline{1-11}{2pt,solid}
+
+\end{tblr}%
+
+}
+
+\end{table*}
+
+\endgroup

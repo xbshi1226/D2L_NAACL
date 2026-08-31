@@ -1,0 +1,164 @@
+% !TEX program = lualatex
+% This file compiles with both LuaLaTeX and XeLaTeX
+\documentclass[11pt]{article}
+
+% Change "review" to "final" to generate the final (sometimes called camera-ready) version.
+% Change to "preprint" to generate a non-anonymous version with page numbers.
+\usepackage[review]{acl}
+
+% This is not strictly necessary, and may be commented out,
+% but it will improve the layout of the manuscript,
+% and will typically save some space.
+\usepackage{microtype}
+\usepackage{booktabs} 
+\usepackage{tabularray}
+\UseTblrLibrary{booktabs}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[ruled,vlined,linesnumbered]{algorithm2e}
+\usepackage{dsfont}
+\usepackage{nccmath}
+\usepackage{graphicx}
+\graphicspath{{fig/}}
+ \usepackage{multirow}
+ \usepackage{subcaption}
+ \usepackage[most]{tcolorbox}
+% If the title and author information does not fit in the area allocated, uncomment the following
+%
+%\setlength\titlebox{<dim>}
+%
+% and set <dim> to something 5cm or larger.
+
+% These font selection commands work with
+% LuaLaTeX and XeLaTeX, but not pdfLaTeX.
+\usepackage[english,bidi=default]{babel} % English as the main language.
+\babelfont{rm}{TeX Gyre Termes} % similar to Times
+%%% include whatever languages you need below this line
+\babelprovide[import]{hindi}
+\babelfont[*devanagari]{rm}{Lohit Devanagari}
+\babelprovide[import]{arabic}
+\babelfont[*arabic]{rm}{Noto Sans Arabic}
+% Chinese font selection and line breaking for LuaLaTeX.
+\usepackage{luatexja-fontspec}
+\setmainjfont{Noto Serif CJK SC}
+\setsansjfont{Noto Sans CJK SC}
+
+
+
+%\usepackage{polyglossia}
+%\setdefaultlanguage{english}
+%\setotherlanguages{arabic,russian,thai,hindi,kannada}
+
+%%%%%
+
+\usepackage{tikz}
+\definecolor{lightgreen}{RGB}{220,245,220}
+\definecolor{darkgreen}{RGB}{0,100,0}
+
+\newcommand{\greencircle}[1]{%
+  \tikz[baseline=-0.75ex]{
+    \node[
+      shape=circle,
+      fill=lightgreen,
+      text=darkgreen,
+      inner sep=1.2pt,
+      minimum size=1.15em,
+      font=\scriptsize\bfseries
+    ] {#1};
+  }%
+}
+\usepackage{pifont}
+\usepackage{xspace}
+\usepackage{xcolor}
+\usepackage{soul}
+\usepackage[normalem]{ulem}
+\usepackage{lua-ul}
+\usepackage{enumitem}
+\usepackage{courier}
+
+\usepackage{booktabs, multirow, array, makecell}
+\usepackage{graphicx}
+
+\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+
+% Centralized names for the task, benchmark, method, variants, and components.
+\newcommand{\task}{\textsc{MUSE}\xspace}
+\newcommand{\benchmark}{\textsc{MUSE-Bench}\xspace}
+\newcommand{\method}{\textsc{PLUME}\xspace}
+\newcommand{\methodlexical}{\textsc{PLUME-Lexical}\xspace}
+\newcommand{\methodhybrid}{\textsc{PLUME-Hybrid}\xspace}
+\newcommand{\gur}{Global Update LoRA\xspace}
+\newcommand{\qame}{Query-Activated Memory Evidence\xspace}
+\newcommand{\amd}{Adaptive Memory Evidence Decoding\xspace}
+\newcommand{\llmname}[1]{{\fontfamily{pcr}\selectfont {#1}}\xspace}
+\newcommand{\datasetname}[1]{{\fontfamily{cmtt}\selectfont {#1}}\xspace}
+\usepackage{colortbl} % if xcolor is not loaded with [table]
+\definecolor{modelshade}{RGB}{242,246,250}
+\definecolor{gaincolor}{RGB}{24,128,88}
+\definecolor{vanillagray}{RGB}{90,90,90}
+
+\newcommand{\gain}[1]{\textcolor{gaincolor}{\raisebox{-0.35ex}{\tiny$\mathrm{\uparrow\!\!#1}$}}}
+\newcommand{\vanilla}[1]{\textcolor{vanillagray}{#1}}
+
+\definecolor{modelshade}{RGB}{238,244,250}
+
+\newlength{\modelrowwidth}
+\setlength{\modelrowwidth}{0.965\textwidth} % 可微调
+\newcommand{\modelrow}[1]{\multicolumn{9}{c}{\cellcolor{modelshade}\textbf{#1}}}
+
+\title{Towards Evolving Context Parameterization for Large Language Models}
+
+\author{First Author \\
+  Affiliation / Address line 1 \\
+  Affiliation / Address line 2 \\
+  Affiliation / Address line 3 \\
+  \texttt{email@domain} \\\And
+  Second Author \\
+  Affiliation / Address line 1 \\
+  Affiliation / Address line 2 \\
+  Affiliation / Address line 3 \\
+  \texttt{email@domain} \\}
+
+% Float placement for the ACL two-column layout.
+% Do not insert automatic barriers between sections: figures and tables
+% should remain free to move to the nearest available top/bottom slot.
+\setcounter{topnumber}{4}
+\setcounter{bottomnumber}{2}
+\setcounter{totalnumber}{6}
+\renewcommand{\topfraction}{0.95}
+\renewcommand{\bottomfraction}{0.8}
+\renewcommand{\textfraction}{0.05}
+\renewcommand{\floatpagefraction}{0.8}
+
+\setcounter{dbltopnumber}{2}
+\renewcommand{\dbltopfraction}{0.95}
+\renewcommand{\dblfloatpagefraction}{0.8}
+\setlength{\dbltextfloatsep}{10pt plus 2pt minus 2pt}
+
+\begin{document}
+
+\maketitle
+\raggedbottom
+
+\input{sections/abstract}
+\input{sections/1-intro-v0}
+\input{sections/2-bg-v0}
+\input{sections/3-bm-v0}
+\input{sections/4-method-v0}
+\raggedbottom
+\input{sections/5-experiments-v0}
+\input{sections/6-related-v0}
+\input{sections/7-conclusion}
+\flushbottom
+
+
+% Entries for the entire Anthology, followed by custom entries
+% \bibliography{custom, custom_graft}
+\bibliography{custom}
+
+\clearpage
+\appendix
+\input{sections/appendix-v1}
+
+\end{document}
