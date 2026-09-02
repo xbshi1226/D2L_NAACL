@@ -46,7 +46,10 @@ Detailed experimental results are provided in Appendix~\ref{app:efficiency-measu
 % Figure~\ref{fig:locality} showed that \method{} achieved strong Locality among parameterized methods, limiting interference with unaffected information.
 
 \paragraph{Locality.}
-Locality measures whether the model preserves answers to queries unrelated to the update, capturing unintended interference with unaffected information. \method{} achieved strong Locality among parameterized methods, indicating minimal disruption to knowledge outside the scope of the update, as shown in Figure~\ref{fig:locality}.
+% Locality measures whether the model preserves answers to queries unrelated to the update, capturing unintended interference with unaffected information. \method{} achieved strong Locality among parameterized methods, indicating minimal disruption to knowledge outside the scope of the update, as shown in Figure~\ref{fig:locality}.
+Locality evaluates whether the model preserves answers to queries outside the scope of the update, thereby measuring interference with retained information. \method{} achieved strong Locality among parameterized methods, outperforming D2L and CD by 10.25 and 20.30 points, respectively, as shown in Figure~\ref{fig:locality}. This result indicates that \method{} more effectively limits interference introduced by parameter updates while retaining the established context state.
+
+
 
 % Locality figure
 \begin{figure}[!t]

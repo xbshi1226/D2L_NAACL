@@ -15,23 +15,23 @@
 & Mem. (GiB) $\downarrow$
 & Lat. (s/query) $\downarrow$ \\
 \midrule
-Base w/ Context  & 0.208 & 1.972 & 1.749 & 1.194 \\
-Base w/o Context & 0.047 & 6.467 & 0.042 & 0.924 \\
-CD (oracle)      & 0.057 & 1.663 & 0.053 & 4.709 \\
+w/ Context (oracle)  & 0.208 & 1.972 & 1.749 & 1.194 \\
+CD (oracle)          & 0.057 & 1.663 & 0.053 & 4.709 \\
 \midrule
-AnyEdit          & 0.042 & 4.789 & 0.046 & \textbf{4.709} \\
+w/o Context      & 0.047 & 6.467 & \underline{0.042} & \textbf{0.924} \\
+AnyEdit          & 0.042 & 4.789 & 0.046 & \underline{4.709} \\
 CD               & \textbf{0.026} & 1.906 & \textbf{0.032} & 5.718 \\
-D2L              & \underline{0.039} & \textbf{1.577} & \underline{0.045} & 5.079 \\
+D2L              & \underline{0.039} & \textbf{1.577} & 0.045 & 5.079 \\
 \midrule
 \textbf{PLUME}   & 0.059 & \underline{1.592} & 0.068 & \underline{5.152} \\
 \bottomrule
 \end{tabular}
 \caption{
-Generation efficiency on SQuAD and 2Wiki.
-Memory denotes peak generation memory, and latency denotes
-generation time per query. Among non-base, non-oracle methods,
-bold and underlined values denote the best and second-best results,
-respectively. Lower values are better.
+\textbf{Generation efficiency on SQuAD and 2Wiki.}
+Memory is the peak additional CUDA memory allocated during generation, and
+latency is the mean generation time per query. Oracle methods are excluded
+from ranking; bold and underlined values denote the best and second-best
+non-oracle results, respectively. Lower values are better.
 }
 \label{tab:generation-efficiency}
 \end{table*}

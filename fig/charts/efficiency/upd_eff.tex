@@ -25,12 +25,13 @@ D2L              & \textbf{0.438} & \underline{0.466} & \textbf{11.536} & \under
 \bottomrule
 \end{tabular}
 \caption{
-Update efficiency on SQuAD and 2Wiki.
-Memory denotes peak update memory, and latency denotes update time per
-document. The two base methods are omitted because they incur no update-stage
-cost. Excluding the oracle method, bold and underlined values denote the best
-and second-best results, respectively. Lower values are better; tied best
-values are both bolded.
+\textbf{Update efficiency on SQuAD and 2Wiki.}
+Memory is the peak additional CUDA memory allocated during context
+parameterization, and latency is the mean update time per document. The two
+base-model references are omitted because they incur no update-stage cost.
+Oracle methods are excluded from ranking; bold and underlined values denote
+the best and second-best non-oracle results, respectively. Lower values are
+better, and tied best values are both bolded.
 }
 \label{tab:update-efficiency}
 \end{table*}

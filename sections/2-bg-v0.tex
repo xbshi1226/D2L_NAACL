@@ -1,9 +1,14 @@
 \section{Background}
 \label{sec:background}
 
-This paper studies context parameterization under continual updates, where contextual information is internalized into a parameterized state for reuse across queries. Let $C$, $q$, and $y$ denote the context, query, and answer sequences, respectively, and let $p_\theta$ denote the conditional generation distribution of a language model with parameters $\theta$.
-Conventional long-context and RAG methods instead supply context explicitly at inference time, generating answers via $p_\theta(y\mid C,q)$~\citep{lewis2020retrieval,guu2020retrieval,ding2023longnet}.
-This incurs repeated reprocessing overhead per query, and long-context models may further suffer degraded information access depending on context position~\citep{liu2024lost,hsieh2024found}.
+% This paper studies context parameterization under continual updates, where contextual information is internalized into a parameterized state for reuse across queries. 
+% Let $C$, $q$, and $y$ denote the context, query, and answer sequences, respectively, and let $p_\theta$ denote the conditional generation distribution of a language model with parameters $\theta$.
+% Conventional long-context and RAG methods instead supply context explicitly at inference time, generating answers via $p_\theta(y\mid C,q)$~\citep{lewis2020retrieval,guu2020retrieval,ding2023longnet}.
+% This incurs repeated reprocessing overhead per query, and long-context models may further suffer degraded information access depending on context position~\citep{liu2024lost,hsieh2024found}.
+We study context parameterization under continual updates, internalizing information into a parameterized state reused across queries as $C$ grows monotonically.
+Let $C$, $q$, and $y$ denote the context, query, and answer, and $p_\theta(\cdot\mid\cdot)$ the conditional distribution of a $\theta$-parameterized language model.
+Conventional long-context and RAG methods supply context at inference time---concatenating context into the input window or retrieving passages---via $p_\theta(y\mid C,q)$~\citep{lewis2020retrieval,guu2020retrieval,ding2023longnet}, incurring reprocessing costs scaling with $|C|$, compounding across queries~\citep{gao2023retrieval}, and suffering position bias, underutilizing evidence away from the input's boundaries~\citep{liu2024lost,hsieh2024found}.
+These costs motivate context parameterization internalizing $C$ into parameters decoupled from per-query inference.
 
 Context Distillation (CD) instead transfers contextual information from explicit input into model parameters.
 Given a context $C$ and an associated query distribution $\mathcal{Q}_C$, CD uses a context-conditioned teacher to optimize a context-specific parameter state $\theta_C$:
